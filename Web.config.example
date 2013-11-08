@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="Escc.Cms.WebServices.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+
+    <appSettings>
+        <add key="CmsAdminUser" value="username"/>
+        <add key="CmsAdminPassword" value="password"/>
+        <add key="CmsAdminDomain" value="domain"/>
+    </appSettings>
+
+    <system.web>
+        <!-- Make the test form available remotely -->
+        <webServices>
+            <protocols>
+                <add name="HttpGet"/>
+                <add name="HttpPost"/>
+            </protocols>
+        </webServices>
+
+        <compilation defaultLanguage="c#" debug="true" targetFramework="4.0">
+            <assemblies>
+                <add assembly="Microsoft.ContentManagement.Common, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.Publishing, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.Publishing.Extensions.Placeholders, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.Publishing.Extensions.Placeholders.Office, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.Web, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.WebAuthor, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.ContentManagement.WebControls, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+                <add assembly="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+            </assemblies>
+        </compilation>
+
+        <customErrors mode="RemoteOnly"/>
+
+        <authentication mode="Windows"/>
+
+        <authorization>
+            <allow roles="group name allowed access"/>
+            <deny users="*"/>
+        </authorization>
+
+        <globalization requestEncoding="utf-8" responseEncoding="utf-8"/>
+
+        <httpModules>
+            <clear/>
+            <add name="UrlAuthorization" type="System.Web.Security.UrlAuthorizationModule"/>
+            <add name="WindowsAuthentication" type="System.Web.Security.WindowsAuthenticationModule"/>
+            <add type="Microsoft.ContentManagement.Publishing.Events.PostingEventsModule, Microsoft.ContentManagement.Publishing, Version=5.0.1200.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" name="CmsPosting"/>
+        </httpModules>
+
+        <pages validateRequest="false" />
+    </system.web>
+
+    <applicationSettings>
+        <Escc.Cms.WebServices.Properties.Settings>
+            <setting name="Escc_Cms_WebServices_CmsResourcesProxy_Resources"
+              serializeAs="String">
+                <value>http://localhost/escc.cms.webservices/resources.asmx</value>
+            </setting>
+        </Escc.Cms.WebServices.Properties.Settings>
+    </applicationSettings>
+</configuration>

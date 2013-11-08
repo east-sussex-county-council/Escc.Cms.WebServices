@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.eastsussex.gov.uk/Escc.Cms.WebServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.eastsussex.gov.uk/Escc.Cms.WebServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.eastsussex.gov.uk/Escc.Cms.WebServices">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="RootResourceGallery">
+        <s:complexType />
+      </s:element>
+      <s:element name="RootResourceGalleryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RootResourceGalleryResult" type="tns:CmsResourceGallery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CmsResourceGallery">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Guid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Galleries" type="tns:ArrayOfCmsResourceGallery" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resources" type="tns:ArrayOfCmsResource" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCmsResourceGallery">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CmsResourceGallery" nillable="true" type="tns:CmsResourceGallery" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCmsResource">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CmsResource" nillable="true" type="tns:CmsResource" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CmsResource">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Guid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisplayName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ResourceGallery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="guid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResourceGalleryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResourceGalleryResult" type="tns:CmsResourceGallery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CmsResourceGallery" nillable="true" type="tns:CmsResourceGallery" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RootResourceGallerySoapIn">
+    <wsdl:part name="parameters" element="tns:RootResourceGallery" />
+  </wsdl:message>
+  <wsdl:message name="RootResourceGallerySoapOut">
+    <wsdl:part name="parameters" element="tns:RootResourceGalleryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResourceGallerySoapIn">
+    <wsdl:part name="parameters" element="tns:ResourceGallery" />
+  </wsdl:message>
+  <wsdl:message name="ResourceGallerySoapOut">
+    <wsdl:part name="parameters" element="tns:ResourceGalleryResponse" />
+  </wsdl:message>
+  <wsdl:message name="RootResourceGalleryHttpGetIn" />
+  <wsdl:message name="RootResourceGalleryHttpGetOut">
+    <wsdl:part name="Body" element="tns:CmsResourceGallery" />
+  </wsdl:message>
+  <wsdl:message name="RootResourceGalleryHttpPostIn" />
+  <wsdl:message name="RootResourceGalleryHttpPostOut">
+    <wsdl:part name="Body" element="tns:CmsResourceGallery" />
+  </wsdl:message>
+  <wsdl:portType name="ResourcesSoap">
+    <wsdl:operation name="RootResourceGallery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets details of the root resource gallery and its immediate children from the current server.</wsdl:documentation>
+      <wsdl:input message="tns:RootResourceGallerySoapIn" />
+      <wsdl:output message="tns:RootResourceGallerySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResourceGallery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets details of a resource gallery and its immediate children from the current server.</wsdl:documentation>
+      <wsdl:input message="tns:ResourceGallerySoapIn" />
+      <wsdl:output message="tns:ResourceGallerySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ResourcesHttpGet">
+    <wsdl:operation name="RootResourceGallery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets details of the root resource gallery and its immediate children from the current server.</wsdl:documentation>
+      <wsdl:input message="tns:RootResourceGalleryHttpGetIn" />
+      <wsdl:output message="tns:RootResourceGalleryHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ResourcesHttpPost">
+    <wsdl:operation name="RootResourceGallery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets details of the root resource gallery and its immediate children from the current server.</wsdl:documentation>
+      <wsdl:input message="tns:RootResourceGalleryHttpPostIn" />
+      <wsdl:output message="tns:RootResourceGalleryHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ResourcesSoap" type="tns:ResourcesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RootResourceGallery">
+      <soap:operation soapAction="http://www.eastsussex.gov.uk/Escc.Cms.WebServices/RootResourceGallery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResourceGallery">
+      <soap:operation soapAction="http://www.eastsussex.gov.uk/Escc.Cms.WebServices/ResourceGallery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ResourcesSoap12" type="tns:ResourcesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RootResourceGallery">
+      <soap12:operation soapAction="http://www.eastsussex.gov.uk/Escc.Cms.WebServices/RootResourceGallery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResourceGallery">
+      <soap12:operation soapAction="http://www.eastsussex.gov.uk/Escc.Cms.WebServices/ResourceGallery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ResourcesHttpGet" type="tns:ResourcesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="RootResourceGallery">
+      <http:operation location="/RootResourceGallery" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ResourcesHttpPost" type="tns:ResourcesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="RootResourceGallery">
+      <http:operation location="/RootResourceGallery" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Resources">
+    <wsdl:port name="ResourcesSoap" binding="tns:ResourcesSoap">
+      <soap:address location="http://localhost/escc.cms.webservices/resources.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ResourcesSoap12" binding="tns:ResourcesSoap12">
+      <soap12:address location="http://localhost/escc.cms.webservices/resources.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ResourcesHttpGet" binding="tns:ResourcesHttpGet">
+      <http:address location="http://localhost/escc.cms.webservices/resources.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ResourcesHttpPost" binding="tns:ResourcesHttpPost">
+      <http:address location="http://localhost/escc.cms.webservices/resources.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
